@@ -3,21 +3,29 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	_ "github.com/lib/pq"
 )
 
 const (
 	host     = "localhost"
 	port     = 5432
 	user     = "postgres"
-	password = "43dagtot21"
+	password = " "
 	dbname   = "library"
 )
 
 func main() {
-	psqlconn := fmt.Sprintf("host = %s port = %d user = %s password = %s dbname = %s sslmode=disable", host, port, password, dbname)
+	psqlconn := fmt.Sprintf("host= %s port = %d user = %s password =%s dbname = %s sslmode=disable", host, port, user, password, dbname)
 
 	db, err := sql.Open("postgres", psqlconn)
-	CheckError(err)
+	if err != nil {
+		fmt.Println("Could not connect", err)
+	}
 	defer db.Close()
-	insert := "inseret into 'author('author_id', 'author_name', 'birthday') values
+	var varid int
+	rows, err := db.Query("INSERT INTO author(author_id, author_name, birthday) values ('10', 'Petrov K. P.', 'birthday')", 1).Scan(&varid)
+	if err != nil {
+		fmt.Println("Can not:", err)
+	}
+	defer rows.Close()
 }
