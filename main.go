@@ -27,7 +27,6 @@ func create(a_id int, a_name string, b_day string) {
 	if err != nil {
 		log.Fatal("Here2: ", err)
 	}
-
 	res, err := stmt.Exec(a_id, a_name, b_day)
 	if err != nil {
 		log.Fatal("Here1: ", err)
@@ -48,13 +47,15 @@ func main() {
 		fmt.Scanln(&operation)
 		switch operation {
 		case 1:
-			fmt.Println("Input author id:,  and his birthday:")
+			fmt.Println("Input author id: ")
 			var authorId int
+			fmt.Scanln(&authorId)
 			fmt.Println("Input author author name:")
 			var name string
+			fmt.Scanln(&name)
 			fmt.Println("And his birthday:")
 			var birthday string
-			fmt.Scanln(&authorId, &name, &birthday)
+			fmt.Scanln(&birthday)
 			create(authorId, name, birthday)
 		case 5:
 			variable = false
